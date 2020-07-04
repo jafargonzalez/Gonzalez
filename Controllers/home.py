@@ -1,5 +1,5 @@
-def index(TemplateEngine,Id=None):
+def index(Config,Id=None):
     dictionary = {"title": "rotic",
                   "lable_name": "name:"}
-    result = TemplateEngine.Engine(TemplateEngine,"Views/home.html", dictionary)
+    result = Config['engine'].Engine(Config['engine'],"Views/home.html", dictionary)
     return result

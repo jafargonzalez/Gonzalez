@@ -3,6 +3,7 @@ from Core.TemplateEngine import TemplateEngine as TemplateEngine
 import os
 import json
 import route
+import sys
 
 
 _id = None
@@ -10,6 +11,7 @@ _id = None
 
 path = os.environ.get('REQUEST_URI')
 method = os.environ.get('REQUEST_METHOD')
+requested_body = sys.stdin.read()
 
 # method = "GET"
 # path= "/user"
@@ -27,31 +29,36 @@ else:
 
 
 
+
+
+
 controller_items = controller.split('.')
 _module = controller_items[0]
 _attribute = controller_items[1]
 
 
+Config={
+    'engine':TemplateEngine,
+    'method':method,
+    'body':requested_body,
+    'path':path
+}
 
 
 
-
-def run(TemplateEngine, Controller, Function, Id):
+def run(Config, Controller, Function, Id):
     Method = getattr(Controller, Function)
     if Id != None:
-        return Method(TemplateEngine,Id)
+        return Method(Config,Id)
     else:
-        return Method(TemplateEngine)
+        return Method(Config)
 
 
-def route(_module, TemplateEngine, _attribute, _id=None):
+def route(Config,_module , _attribute, _id=None):
     module = __import__('Controllers.' + _module)
     instance = getattr(module, _module)
-    return run(TemplateEngine, instance, _attribute, _id)
+    return run(Config, instance, _attribute, _id)
 
-def load_json(file_name):
-    with open("Jsons/"+file_name+".json",encoding='utf-8') as json_file:
-        return json.load(json_file)
 
 if _module == 'api' :
     print('Content-type: application/json\r\n\r')
@@ -59,12 +66,11 @@ if _module == 'api' :
     result = "{\"" \
              "name\":\"Gonzalez\"}"
 else:
-    result = route(_module, TemplateEngine, _attribute, _id)
+    result = route(Config,_module, _attribute, _id)
     print('Content-type: text/html\r\n\r')
 
-if method == 'POST':
-    result = os.environ
 
-# print('Content-type: text/html\r\n\r')
+
 
 print(result)
+

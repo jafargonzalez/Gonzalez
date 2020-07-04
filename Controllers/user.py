@@ -4,15 +4,16 @@
 # and rename this to your desired name for creating a new repository
 # also u can create a new row in controllers.json file in your root folder
 # if u want to assign this controller to a view or to a model or both
-def index(TemplateEngine,Id=None):
-    dictionary = {"title": "rotic",
+def index(Config,Id=None):
+    dictionary = {"title": "Users",
                     "lable_name": "name:"}
-    result = TemplateEngine.Engine(TemplateEngine,"Views/user.html", dictionary)
+    result = Config['engine'].Engine(Config['engine'],"Views/user.html", dictionary)
     return result
 
 # we will observe rest-api standards  here
-def GET():
-    pass
+def create(Config,Id=None):
+    dictionary = {"title": "rotic",
+                  "lable_name": "name:"}
 
 def POST():
     pass

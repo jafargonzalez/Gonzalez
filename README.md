@@ -1,9 +1,8 @@
-"# Gonzalez_Framework" 
-hi dear programmer
-i am Gonzalez_Framework
-i provide a web server for programmers like you
-if you want to work with me u shuld copy all of files and folder 
-in your web server's root folder
+# Gonzalez
+An easy to use python framework for web artisans.
+
+ 
+This is Gonzalez framework that provides a web server for python developers. it`s an easy to understand web framework with some unique features to run as our desire customizable web framework.
 
 
 #views
